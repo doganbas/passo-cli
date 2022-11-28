@@ -1,0 +1,45 @@
+{
+  "name": "passo-creator",
+  "version": "0.0.2",
+  "description": "Passo component creator",
+  "main": "./src/index",
+  "engines": {
+    "npm": ">=7.0.0"
+  },
+  "scripts": {
+    "dev": "node ./src/index",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+  },
+  "keywords": [
+    "cli",
+    "component",
+    "creator"
+  ],
+  "author": "Serkan DOĞANBAŞ",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.1.2",
+    "commander": "^9.4.1",
+    "cosmiconfig": "^8.0.0",
+    "fs": "0.0.1-security",
+    "glob": "^8.0.3",
+    "handlebars": "^4.7.7",
+    "log-update": "^5.0.1",
+    "mkdirp": "^1.0.4",
+    "node-alias": "^1.0.4",
+    "prettier": "^2.8.0",
+    "semver": "^7.3.8"
+  },
+  "devDependencies": {
+    "app-root-dir": "^1.0.2",
+    "eslint": "^8.28.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-react": "^7.31.11",
+    "prettier-eslint": "^15.0.1"
+  },
+  "bin": {
+    "passo-cli": "bin/passo-cli.js"
+  }
+}

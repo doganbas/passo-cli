@@ -1,0 +1,17 @@
+import React, {FunctionComponent} from 'react';
+import {useTranslation} from 'react-i18next';
+import {Text, View} from 'react-native';
+
+import {{customCharacter}}{{nameLowerCase}}Localization, {{nameLowerCase}}LocalizationKeys} from './{{nameLowerCase}}.localization';
+import {{customCharacter}}{{nameLowerCase}}Style} from './{{nameLowerCase}}.style';
+import {{customCharacter}}{{name}}PropsType} from './{{nameLowerCase}}.type';
+
+export const {{name}}: FunctionComponent<{{name}}PropsType> = props => {
+  const {t} = useTranslation();
+
+  return (
+    <View style={{customCharacter}}{{nameLowerCase}}Style.container} testID={props.testID}>
+      <Text>{t({{nameLowerCase}}LocalizationKeys.componentName, {{nameLowerCase}}Localization.componentName)}</Text>
+    </View>
+  );
+};

@@ -1,0 +1,10 @@
+export const {{nameLowerCase}}Localization = {
+  componentName: '{{name}}',
+};
+
+export const {{nameLowerCase}}LocalizationKeys: Record<keyof typeof {{nameLowerCase}}Localization, string> = Object.keys(
+  {{nameLowerCase}}Localization,
+).reduce(
+  (acc, item) => ((acc[item as keyof typeof {{nameLowerCase}}Localization] = `{{customLocalizationPath}}.${item}`), acc),
+  {} as Record<keyof typeof {{nameLowerCase}}Localization, string>,
+);

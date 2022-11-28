@@ -1,0 +1,13 @@
+import {storiesOf} from '@storybook/react-native';
+import React from 'react';
+import {View} from 'react-native';
+
+import {{name}} from '../index';
+
+storiesOf('{{name}}', module).add('Basic {{name}}', () => {
+  return (
+    <View>
+      <{{name}} testID={'story-{{nameLowerCase}}'} />
+    </View>
+  );
+});
