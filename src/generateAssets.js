@@ -6,13 +6,11 @@ const ROOT_DIR = process.cwd();
 
 function createIndexFile(pathPattern, ignorePattern, writeFolder, finalMessage, isIcon = false) {
   glob(pathPattern, {ignore: ignorePattern}, function (er, files) {
-    if (files.length <= 0) {
-      return;
-    }
     const finalList = [];
     const exportList = [];
 
     files.forEach(storyFile => {
+      if (!storyFile) return;
       const readPathSplit = storyFile.split('/');
       const assetNameFull = readPathSplit[readPathSplit.length - 1];
       const assetName = assetNameFull.split('.')[0].trim();
@@ -27,6 +25,8 @@ function createIndexFile(pathPattern, ignorePattern, writeFolder, finalMessage, 
       }
       exportList.push(componentNameWithoutSpecialCharacter(assetName));
     });
+
+    if (finalList.length <= 0) return;
 
     const writePath = path.join(ROOT_DIR, 'src', 'assets', writeFolder, 'index.ts');
     const fileContent = finalList.join('\n') + '\n\n' + `export {\n  ${exportList.join(',\n  ')},\n};\n`;
