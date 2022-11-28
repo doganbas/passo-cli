@@ -1,5 +1,5 @@
 {
-  "name": "passo-creator",
+  "name": "passo-cli",
   "version": "0.0.2",
   "description": "Passo component creator",
   "main": "./src/index",

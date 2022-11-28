@@ -7,7 +7,7 @@ const stringHelper = require('./utils/stringHelper');
 const ROOT_DIR = process.cwd();
 const [, , ...args] = process.argv;
 const componentNames = removeOptionsFromArgs(args);
-const defaultTempPath = path.join('node_modules/passo-creator');
+const defaultTempPath = path.join('node_modules/passo-cli');
 const templatePaths = {
   component: path.join(defaultTempPath, 'templates', 'componentContent.hbs'),
   style: path.join(defaultTempPath, 'templates', 'componentStyle.hbs'),
