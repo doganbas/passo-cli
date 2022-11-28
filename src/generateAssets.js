@@ -6,6 +6,9 @@ const ROOT_DIR = process.cwd();
 
 function createIndexFile(pathPattern, ignorePattern, writeFolder, finalMessage, isIcon = false) {
   glob(pathPattern, {ignore: ignorePattern}, function (er, files) {
+    if (files.length <= 0) {
+      return;
+    }
     const finalList = [];
     const exportList = [];
 
