@@ -10,7 +10,7 @@ function initialize() {
       const readPathSplit = storyFile.split('/');
       const componentName = readPathSplit[readPathSplit.length - 3];
       let finalPathList = readPathSplit.slice(readPathSplit.indexOf('components') + 1, readPathSplit.length - 1);
-      finalPathList.push(componentName);
+      finalPathList.push(`${componentName}.stories`);
       finalList.push(`import '${finalPathList.join('/')}';`);
     });
 
