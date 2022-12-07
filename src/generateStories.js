@@ -11,7 +11,7 @@ function initialize() {
       const componentName = readPathSplit[readPathSplit.length - 3];
       let finalPathList = readPathSplit.slice(readPathSplit.indexOf('components') + 1, readPathSplit.length - 1);
       finalPathList.push(componentName);
-      finalList.push(`import '${finalPathList.join('.')}';`);
+      finalList.push(`import '${finalPathList.join('/')}';`);
     });
 
     const writePath = path.join(ROOT_DIR, 'storybook', 'stories.ts');

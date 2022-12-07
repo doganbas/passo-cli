@@ -22,7 +22,7 @@ function getComponentType() {
   const paramArg = args.find(nq => nq.startsWith('--'));
   const param = paramArg ? paramArg.replace('--', '') : 'atom';
   switch (param) {
-    case 'molecules':
+    case 'molecule':
       return 'molecules';
     case 'organism':
       return 'organisms';
