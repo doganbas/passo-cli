@@ -7,7 +7,7 @@ try {
     .version(packageJson.version)
     .command(
       'create',
-      'Atomik dizayna uygun olarak component oluşturur.\n Component türleri: --atom, --molecule, --organism, --page',
+      'Atomik dizayna uygun olarak component oluşturur.\n Component türleri: --atom, --molecule, --organism, --page, --layout',
       {isDefault: true},
     )
     .command('localizations', 'Tüm dil dosyalarını tek dosya altında toplar.')

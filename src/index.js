@@ -28,6 +28,8 @@ function getComponentType() {
       return 'organisms';
     case 'page':
       return 'pages';
+    case 'layout':
+      return 'layouts';
     default:
       return 'atoms';
   }
