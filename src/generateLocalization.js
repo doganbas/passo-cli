@@ -29,6 +29,7 @@ function initialize() {
       const localizationStartPath = splitPath.slice(splitPath.indexOf('components') + 1, splitPath.length - 1);
 
       finalText.split('~').forEach(item => {
+        if (item.length < 5) return;
         const tup = item.split(':');
         let key = tup[0] ?? '';
         let val = tup[1] ?? '';
