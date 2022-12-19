@@ -18,7 +18,8 @@ function initialize() {
         .replace(`export const ${componentName}Localization = `, '');
       const finalText = filteredText
         .substring(filteredText.indexOf('__start__') + 9, filteredText.indexOf('__end__'))
-        .replaceAll('\n', '')
+        .replaceAll(',\n', '~')
+        .replaceAll(', \n', '~')
         .replace('{', '')
         .replace('}', '')
         .replace(';', '')
@@ -27,7 +28,7 @@ function initialize() {
       const splitPath = localizationFile.split('/');
       const localizationStartPath = splitPath.slice(splitPath.indexOf('components') + 1, splitPath.length - 1);
 
-      finalText.split(',').forEach(item => {
+      finalText.split('~').forEach(item => {
         const tup = item.split(':');
         let key = tup[0] ?? '';
         let val = tup[1] ?? '';
