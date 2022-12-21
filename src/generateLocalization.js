@@ -8,7 +8,10 @@ function initialize() {
     const finalList = {};
 
     files.forEach(localizationFile => {
-      const componentName = localizationFile.split('/')[localizationFile.split('/').length - 2];
+      let componentName = localizationFile.split('/')[localizationFile.split('/').length - 2];
+      if (localizationFile.indexOf('global.localization.ts') > -1) {
+        componentName = 'global';
+      }
       const readPath = path.join(ROOT_DIR, localizationFile);
       const readFile = fs.readFileSync(readPath, {encoding: 'utf8'}).toString();
       const string = `(export const ${componentName}Localization = {([^>]+)};)`;
