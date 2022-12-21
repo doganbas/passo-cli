@@ -4,7 +4,7 @@ const fs = require('fs');
 const ROOT_DIR = process.cwd();
 
 function initialize() {
-  glob(['**/*.localization.ts', '**/globalLocalization.ts'], {}, function (er, files) {
+  glob('**/*.localization.ts', {}, function (er, files) {
     const finalList = {};
 
     files.forEach(localizationFile => {
