@@ -12,6 +12,7 @@ const templatePaths = {
   component: path.join(defaultTempPath, 'templates', 'componentContent.hbs'),
   style: path.join(defaultTempPath, 'templates', 'componentStyle.hbs'),
   type: path.join(defaultTempPath, 'templates', 'componentType.hbs'),
+  default: path.join(defaultTempPath, 'templates', 'componentDefault.hbs'),
   index: path.join(defaultTempPath, 'templates', 'componentIndex.hbs'),
   test: path.join(defaultTempPath, 'templates', 'componentTest.hbs'),
   story: path.join(defaultTempPath, 'templates', 'componentStory.hbs'),
@@ -65,7 +66,7 @@ function createTypeFile(componentType, folderPath, componentName) {
 function createDefaultFile(componentType, folderPath, componentName) {
   const filePath = path.join(folderPath, `${componentName}.default.ts`);
   const name = stringHelper.componentNameWithoutSpecialCharacter(componentName);
-  const templateFile = fs.readFileSync(templatePaths.index, {encoding: 'utf8'});
+  const templateFile = fs.readFileSync(templatePaths.default, {encoding: 'utf8'});
   const template = Handlebars.compile(templateFile.toString());
   const fileContent = template({name, nameLowerCase: componentName, customCharacter: '{', customCharacterAfter: '}'});
   fs.writeFileSync(filePath, fileContent, 'utf8');
