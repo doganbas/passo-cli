@@ -26,7 +26,10 @@ function initialize() {
         .trim();
 
       const splitPath = localizationFile.split('/');
-      const localizationStartPath = splitPath.slice(splitPath.indexOf('components') + 1, splitPath.length - 1);
+      let localizationStartPath = splitPath.slice(splitPath.indexOf('components') + 1, splitPath.length - 1);
+      if (localizationFile.indexOf('global.localization.ts') > -1) {
+        localizationStartPath = ['global'];
+      }
 
       finalText.split('~').forEach(item => {
         if (item.length < 5) return;
