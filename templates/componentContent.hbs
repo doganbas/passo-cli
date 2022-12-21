@@ -2,11 +2,13 @@ import React, {FunctionComponent} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Text, View} from 'react-native';
 
+import {{customCharacter}}{{name}}DefaultPropsType} from './{{nameLowerCase}}.default';
 import {{customCharacter}}{{nameLowerCase}}Localization, {{nameLowerCase}}LocalizationKeys} from './{{nameLowerCase}}.localization';
 import {{customCharacter}}{{nameLowerCase}}Style} from './{{nameLowerCase}}.style';
 import {{customCharacter}}{{name}}PropsType} from './{{nameLowerCase}}.type';
 
-export const {{name}}: FunctionComponent<{{name}}PropsType> = props => {
+export const {{name}}: FunctionComponent<{{name}}PropsType> = inProps => {
+  const props = inProps as {{name}}DefaultPropsType;
   const {t} = useTranslation();
 
   return (

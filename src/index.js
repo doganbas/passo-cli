@@ -62,6 +62,15 @@ function createTypeFile(componentType, folderPath, componentName) {
   fs.writeFileSync(filePath, fileContent, 'utf8');
 }
 
+function createDefaultFile(componentType, folderPath, componentName) {
+  const filePath = path.join(folderPath, `${componentName}.default.ts`);
+  const name = stringHelper.componentNameWithoutSpecialCharacter(componentName);
+  const templateFile = fs.readFileSync(templatePaths.index, {encoding: 'utf8'});
+  const template = Handlebars.compile(templateFile.toString());
+  const fileContent = template({name, nameLowerCase: componentName, customCharacter: '{', customCharacterAfter: '}'});
+  fs.writeFileSync(filePath, fileContent, 'utf8');
+}
+
 function createLocalizationFile(componentType, folderPath, componentName, customLocalizationPath) {
   const filePath = path.join(folderPath, `${componentName}.localization.ts`);
   const name = stringHelper.componentNameWithoutSpecialCharacter(componentName);
@@ -128,6 +137,7 @@ function initialize() {
     createComponentFile(componentType, componentPath, componentName);
     createStyleFile(componentType, componentPath, componentName);
     createTypeFile(componentType, componentPath, componentName);
+    createDefaultFile(componentType, componentPath, componentName);
     createIndexFile(componentType, componentPath, componentName);
     createTestFile(componentType, testPath, componentName);
     createStoryFile(componentType, storyPath, componentName);

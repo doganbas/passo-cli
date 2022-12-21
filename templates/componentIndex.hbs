@@ -1,11 +1,10 @@
 import {{customCharacter}}{{name}}{{customCharacterAfter}} from './{{nameLowerCase}}.component';
+import {{customCharacter}}{{name}}DefaultPropsType, {{nameLowerCase}}DefaultProps} from './{{nameLowerCase}}.default';
 import {{customCharacter}}{{nameLowerCase}}Localization, {{nameLowerCase}}LocalizationKeys} from './{{nameLowerCase}}.localization';
 import {{customCharacter}}{{nameLowerCase}}Style} from './{{nameLowerCase}}.style';
 import {{customCharacter}}{{name}}PropsType} from './{{nameLowerCase}}.type';
 
-{{name}}.defaultProps = {
-  testID: {{nameLowerCase}}Localization.componentName,
-};
+{{name}}.defaultProps = {{nameLowerCase}}DefaultProps;
 
 export default {{name}};
-export {type {{name}}PropsType, {{nameLowerCase}}Style, {{nameLowerCase}}Localization, {{nameLowerCase}}LocalizationKeys};
+export {type {{name}}PropsType, type {{name}}DefaultPropsType, {{nameLowerCase}}DefaultProps, {{nameLowerCase}}Style, {{nameLowerCase}}Localization, {{nameLowerCase}}LocalizationKeys};

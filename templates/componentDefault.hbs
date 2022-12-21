@@ -1,0 +1,8 @@
+import {{customCharacter}}{{nameLowerCase}}Localization} from './{{nameLowerCase}}.localization';
+import {{customCharacter}}{{name}}PropsType} from './{{nameLowerCase}}.type';
+
+export type {{name}}DefaultPropsType = {{name}}PropsType & Required<Pick<{{name}}PropsType, keyof typeof {{nameLowerCase}}DefaultProps>>;
+
+export const {{nameLowerCase}}DefaultProps: {{name}}PropsType = {
+  testID: {{nameLowerCase}}Localization.componentName,
+};
