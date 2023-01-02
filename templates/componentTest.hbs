@@ -2,8 +2,16 @@ import React from 'react';
 import 'react-native';
 import renderer from 'react-test-renderer';
 
-import {{name}} from '../index';
+import {{name}}, {{customCharacter}}{{name}}PropsType} from '../index';
+
+const getComponent = (props:{{name}}PropsType) => {
+  return <{{name}} {...props} />
+}
 
 it('render {{nameLowerCase}}', () => {
-  renderer.create(<{{name}} testID={'{{nameLowerCase}}-test'} />);
+  const props : {{name}}PropsType = {
+    testID : '{{nameLowerCase}}-test',
+  }
+  const RenderedComponent = renderer.create(getComponent(props)).toJSON();
+  expect(RenderedComponent).toMatchSnapshot();
 });
