@@ -31,6 +31,8 @@ function getComponentType() {
       return 'pages';
     case 'layout':
       return 'layouts';
+    case 'provider':
+      return 'providers';
     default:
       return 'atoms';
   }
