@@ -1,13 +1,32 @@
-import {storiesOf} from '@storybook/react-native';
+import {ComponentMeta, ComponentStory} from '@storybook/react';
 import React from 'react';
-import {View} from 'react-native';
 
 import {{name}} from '../index';
 
-storiesOf('{{name}}', module).add('Basic {{name}}', () => {
-  return (
-    <View>
-      <{{name}} testID={'story-{{nameLowerCase}}'} />
-    </View>
-  );
-});
+export default {
+  title: '{{componentType}}/{{name}}s',
+  component: {{name}},
+  parameters: {
+    docs: {
+      description: {
+        component: '{{name}},{{componentType}} içerisinde bulunan bir componenttir.'
+      }
+    }
+  },
+  argTypes: {
+    testID: {
+      description: "Testler için verilecek id'dir.",
+      table: {
+        category: 'Events'
+      }
+    },
+  }
+} as ComponentMeta<typeof {{name}}>;
+
+const Template: ComponentStory<typeof {{name}}> = args => <{{name}} {...args} />;
+
+export const Basic{{name}} = Template.bind({});
+
+Basic{{name}}.args = {
+  testID: 'basic-{{name}}',
+};

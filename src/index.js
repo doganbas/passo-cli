@@ -95,7 +95,7 @@ function createTestFile(componentType, folderPath, componentName) {
   const name = stringHelper.componentNameWithoutSpecialCharacter(componentName);
   const templateFile = fs.readFileSync(templatePaths.test, {encoding: 'utf8'});
   const template = Handlebars.compile(templateFile.toString());
-  const fileContent = template({name, nameLowerCase: name});
+  const fileContent = template({name, nameLowerCase: name, customCharacter: '{', componentType: componentType});
   fs.writeFileSync(filePath, fileContent, 'utf8');
 }
 
@@ -104,7 +104,7 @@ function createStoryFile(componentType, folderPath, componentName) {
   const name = stringHelper.componentNameWithoutSpecialCharacter(componentName);
   const templateFile = fs.readFileSync(templatePaths.story, {encoding: 'utf8'});
   const template = Handlebars.compile(templateFile.toString());
-  const fileContent = template({name, nameLowerCase: name});
+  const fileContent = template({name, nameLowerCase: name, customCharacter: '{', componentType: componentType});
   fs.writeFileSync(filePath, fileContent, 'utf8');
 }
 
