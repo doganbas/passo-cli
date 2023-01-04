@@ -1,8 +1,10 @@
 const path = require('path');
+const { exec } = require('child_process');
 const fs = require('fs');
 const Handlebars = require('handlebars');
 const removeOptionsFromArgs = require('./utils/removeOptionsFromArgs');
 const stringHelper = require('./utils/stringHelper');
+const inquirer = require('inquirer');
 
 const ROOT_DIR = process.cwd();
 const [, , ...args] = process.argv;
@@ -33,6 +35,8 @@ function getComponentType() {
       return 'layouts';
     case 'provider':
       return 'providers';
+    case 'codegen':
+      return 'codegen';
     default:
       return 'atoms';
   }
@@ -110,44 +114,95 @@ function createStoryFile(componentType, folderPath, componentName) {
   fs.writeFileSync(filePath, fileContent, 'utf8');
 }
 
+async function codegenGetEnv(env){
+  const envPropmpt = [
+    {
+      name: 'name',
+      type: 'list',
+      message: 'Lütfen Codegen ortamını seçiniz.',
+      choices: env,
+      validate: function( value ) {
+        if (value.length) {
+          return true;
+        } else {
+          return 'Lütfen ortam seçiniz';
+        }
+      }
+    },
+  ];
+  return inquirer.prompt(envPropmpt);
+}
+async function codegenInitialize(){
+  const baseDir = path.join(ROOT_DIR);
+  componentPath = path.join(baseDir, 'codegen.json');
+  if (fs.existsSync(componentPath)) {
+    fs.readFile(componentPath, 'utf8', async function (err, data) {
+      if (err) throw err;
+      obj = JSON.parse(data);
+      const envAsk = await codegenGetEnv(obj.env)
+      console.log('Çalışma ortamınız: ',envAsk.name);
+      if(obj[envAsk.name].length>0){
+        obj[envAsk.name].forEach(item=>{
+          exec('yarn '+item, (err, stdout, stderr) => {
+            if (err) {
+              console.error('Codegen oluşturulamadı ',err)
+              return;
+            }
+          });
+        })
+        console.error('Codegen dosyaları başarıyla oluşturuldu ')
+      }else {
+        console.error('Seçilen ortamın içeriği boş.')
+      }
+    });
+  }else {
+    console.error(`codegen.json dosyası bulunamadı.`);
+    return;
+  }
+}
+
 function initialize() {
   const componentType = getComponentType();
   const baseDir = path.join(ROOT_DIR, 'src');
+  
+  if(componentType == 'codegen'){
+    codegenInitialize()
+  }else {
+    componentNames.forEach(item => {
+      const fullNamePath = item.split('/');
+      const componentName = fullNamePath[fullNamePath.length - 1];
+      let componentPath = path.join(baseDir, 'components', componentType, componentName);
+      let customLocalizationPath = `${componentType}.${componentName}`;
+      if (fullNamePath.length > 1) {
+        const customFolder = item.replace('/' + componentName, '');
+        customLocalizationPath = `${componentType}.${fullNamePath.join('.')}`;
+        componentPath = path.join(baseDir, 'components', componentType, customFolder, componentName);
+      }
 
-  componentNames.forEach(item => {
-    const fullNamePath = item.split('/');
-    const componentName = fullNamePath[fullNamePath.length - 1];
-    let componentPath = path.join(baseDir, 'components', componentType, componentName);
-    let customLocalizationPath = `${componentType}.${componentName}`;
-    if (fullNamePath.length > 1) {
-      const customFolder = item.replace('/' + componentName, '');
-      customLocalizationPath = `${componentType}.${fullNamePath.join('.')}`;
-      componentPath = path.join(baseDir, 'components', componentType, customFolder, componentName);
-    }
+      const testPath = path.join(componentPath, '__tests__');
+      const storyPath = path.join(componentPath, '__stories__');
 
-    const testPath = path.join(componentPath, '__tests__');
-    const storyPath = path.join(componentPath, '__stories__');
+      if (fs.existsSync(componentPath)) {
+        console.error(`'${componentName}' isimli component zaten mevcut.`);
+        return;
+      }
 
-    if (fs.existsSync(componentPath)) {
-      console.error(`'${componentName}' isimli component zaten mevcut.`);
-      return;
-    }
+      fs.mkdirSync(componentPath);
+      fs.mkdirSync(testPath);
+      fs.mkdirSync(storyPath);
 
-    fs.mkdirSync(componentPath);
-    fs.mkdirSync(testPath);
-    fs.mkdirSync(storyPath);
+      createComponentFile(componentType, componentPath, componentName);
+      createStyleFile(componentType, componentPath, componentName);
+      createTypeFile(componentType, componentPath, componentName);
+      createDefaultFile(componentType, componentPath, componentName);
+      createIndexFile(componentType, componentPath, componentName);
+      createTestFile(componentType, testPath, componentName);
+      createStoryFile(componentType, storyPath, componentName);
+      createLocalizationFile(componentType, componentPath, componentName, customLocalizationPath);
 
-    createComponentFile(componentType, componentPath, componentName);
-    createStyleFile(componentType, componentPath, componentName);
-    createTypeFile(componentType, componentPath, componentName);
-    createDefaultFile(componentType, componentPath, componentName);
-    createIndexFile(componentType, componentPath, componentName);
-    createTestFile(componentType, testPath, componentName);
-    createStoryFile(componentType, storyPath, componentName);
-    createLocalizationFile(componentType, componentPath, componentName, customLocalizationPath);
-
-    console.log('Component başarı ile oluşturulmuştur.');
-  });
+      console.log('Component başarı ile oluşturulmuştur.');
+    });
+  }
 }
 
 initialize();
