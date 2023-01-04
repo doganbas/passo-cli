@@ -139,7 +139,13 @@ async function codegenInitialize(){
     fs.readFile(componentPath, 'utf8', async function (err, data) {
       if (err) throw err;
       obj = JSON.parse(data);
-      const envAsk = await codegenGetEnv(obj.env)
+      const envName = removeOptionsFromArgs(args);
+      let envAsk = [];
+      if(envName){
+        envAsk['name'] = envName[0];
+      }else {
+        envAsk = await codegenGetEnv(obj.env)
+      }
       console.log('Çalışma ortamınız: ',envAsk.name);
       if(obj[envAsk.name].length>0){
         obj[envAsk.name].forEach(item=>{
@@ -164,7 +170,7 @@ async function codegenInitialize(){
 function initialize() {
   const componentType = getComponentType();
   const baseDir = path.join(ROOT_DIR, 'src');
-  
+
   if(componentType == 'codegen'){
     codegenInitialize()
   }else {
