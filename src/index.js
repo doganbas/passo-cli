@@ -141,7 +141,7 @@ async function codegenInitialize(){
       obj = JSON.parse(data);
       const envName = removeOptionsFromArgs(args);
       let envAsk = [];
-      if(envName){
+      if(envName[0]){
         envAsk['name'] = envName[0];
       }else {
         envAsk = await codegenGetEnv(obj.env)
