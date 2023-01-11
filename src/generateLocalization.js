@@ -46,7 +46,7 @@ function initialize() {
         key = key.trim();
         val = val.replaceAll("'", '').trim();
         if (key !== '') {
-          finalList[`${localizationStartPath.join('.')}.${key}`] = val;
+          finalList[`${localizationStartPath.join('.')}.${key}`] = val.replaceAll('\\n', '\n');
         }
       });
     });
