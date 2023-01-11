@@ -51,7 +51,7 @@ function initialize() {
   createIndexFile('**/assets/png/**/*.png', [''], 'png', 'PNG listesi başarı ile oluşturulmulştur.');
 
   //Create Lottie
-  createIndexFile('**/assets/lottie/**/*.js', [''], 'lottie', 'Animasyon listesi başarı ile oluşturulmulştur.');
+  createIndexFile('**/assets/lottie/**/*.json', [''], 'lottie', 'Animasyon listesi başarı ile oluşturulmulştur.');
 }
 
 initialize();
