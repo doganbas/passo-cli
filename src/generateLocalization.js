@@ -21,11 +21,15 @@ function initialize() {
         .replace(`export const ${componentName}Localization = `, '');
       const finalText = filteredText
         .substring(filteredText.indexOf('__start__') + 9, filteredText.indexOf('__end__'))
+        .replaceAll('{{', '%%%%')
+        .replaceAll('}}', '^^^^')
         .replaceAll(',\n', '~')
         .replaceAll(', \n', '~')
-        .replace('{', '')
-        .replace('}', '')
-        .replace(';', '')
+        .replaceAll('{', '')
+        .replaceAll('}', '')
+        .replaceAll(';', '')
+        .replaceAll('%%%%', '{{')
+        .replaceAll('^^^^', '}}')
         .trim();
 
       const splitPath = localizationFile.split('/');
